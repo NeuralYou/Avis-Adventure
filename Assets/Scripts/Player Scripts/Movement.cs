@@ -24,44 +24,16 @@ public class Movement : MonoBehaviour
     
     void Update()
     {
-        //if(canRun)
-		{
-            ApplyMovement(vectorFromBrain);
-            if(prevPositions.Count < 5)
-			{
-                prevPositions.Add((Vector2)transform.localPosition);
-            }
-
-            else
-			{
-                foreach(Vector2 pos in prevPositions)
-				{
-                    if (pos != (Vector2)transform.localPosition)
-					{
-                        hasStopped = false;
-                        prevPositions = new List<Vector2>();
-                        break;
-					}
-
-                    canRun = false;
-                    hasStopped = true;
-				}
-			}
-            
-		}
+        ApplyMovement(vectorFromBrain);
     }
 
-	public void SetMovementVector(Vector2 i_Vec)
-	{
-        vectorFromBrain = i_Vec;
-	}
+
 
     public void ApplyMovement(Vector2 i_Input)
 	{
-        Vector2 movement = i_Input * speedModifier;
-
-        rb.MovePosition(transform.position + (Vector3)movement);
-		//rb.AddForce(movement);
+        //Vector2 movement = i_Input * speedModifier;
+        Vector2 movement = GetInput() * speedModifier;
+		rb.AddForce(movement);
 
 	}
 
